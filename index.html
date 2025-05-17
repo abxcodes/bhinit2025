@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>For Bhumu 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Comic+Neue&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #FFB6C1;
+            --secondary-color: #B0E0E6;
+            --accent-color: #FFF0F5;
+            --text-color: #FF69B4;
+            --primary-font: 'Bubblegum Sans', cursive;
+            --secondary-font: 'Comic Neue', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ffffff;
+            font-family: 'Bubblegum Sans', cursive;
+            transition: background 1s ease;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.5);
+            width: 90%;
+            max-width: 600px;
+            padding: 1rem;
+            margin: 0 auto;
+        }
+
+        .heading {
+            color: var(--text-color);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(255, 105, 180, 0.3);
+            animation: wobble 2s infinite;
+            font-family: var(--primary-font);
+        }
+
+        .surprise-btn {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            background: white;
+            border: 2px solid #FFB6C1;
+            border-radius: 25px;
+            color: #FF69B4;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            z-index: 100;
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+        }
+
+        .birthday-message {
+            margin: 2rem 0;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--text-color);
+            opacity: 0;
+            transition: opacity 1s;
+            animation: float 3s infinite;
+            padding: 1rem;
+            font-family: var(--secondary-font);
+        }
+
+        .show {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .flying-image {
+            position: fixed;
+            width: clamp(40px, 15vw, 100px);
+            height: clamp(40px, 15vw, 100px);
+            object-fit: cover;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(255, 182, 193, 0.7);
+            border: 5px solid white;
+        }
+
+        .flying-container {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .plane {
+            width: 150px;
+            height: 80px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50"><path d="M95,25 C95,15 90,10 80,10 L30,10 C20,10 10,15 5,25 C10,35 20,40 30,40 L80,40 C90,40 95,35 95,25" fill="%23FFB6C1"/></svg>') no-repeat;
+            position: relative;
+        }
+
+        .bestie-pic {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 10px;
+            left: 45px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        .plane-trail {
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(3deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        @keyframes flyAcross {
+            0% {
+                transform: translateX(-150px) translateY(0);
+            }
+            50% {
+                transform: translateX(calc(50vw - 75px)) translateY(-50px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 150px)) translateY(0);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: float 3s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 2rem;
+            }
+            
+            .surprise-btn {
+                padding: 0.8rem 1.6rem;
+                font-size: 1.2rem;
+            }
+
+            .plane-container {
+                transform: scale(0.8);
+            }
+
+            .initial-blast::before {
+                font-size: clamp(4rem, 15vw, 8rem);
+            }
+
+            body {
+                overflow-x: hidden;
+            }
+
+            .flying-container {
+                transform: scale(0.7);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+            }
+
+            .birthday-message br {
+                display: none;
+            }
+
+            .plane-container {
+                transform: scale(0.6);
+            }
+        }
+
+        @media (hover: none) {
+            .surprise-btn {
+                padding: 1rem 2rem;
+                margin: 1rem auto;
+            }
+
+            .surprise-btn:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Add new styles for blast effect */
+        .image-blast {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .blast-particle {
+            position: absolute;
+            width: clamp(20px, 8vw, 50px);
+            height: clamp(20px, 8vw, 50px);
+            border-radius: 5px;
+            background-size: cover;
+            filter: brightness(1.2);
+            box-shadow: 0 0 10px rgba(255, 182, 193, 0.8);
+        }
+
+        .plane-container {
+            position: fixed;
+            pointer-events: none;
+            transform-style: preserve-3d;
+            animation: floatEffect 3s infinite ease-in-out;
+        }
+
+        @keyframes floatEffect {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+
+        .color-animation {
+            animation: backgroundFlash 5s infinite;
+        }
+
+        @keyframes backgroundFlash {
+            0%, 100% { background: linear-gradient(135deg, #FFE5F1, #E0F4FF); }
+            25% { background: linear-gradient(135deg, #FFB6C1, #E0F4FF); }
+            50% { background: linear-gradient(135deg, #E0F4FF, #FFB6C1); }
+            75% { background: linear-gradient(135deg, #FFF0F5, #FFB6C1); }
+        }
+
+        .birthday-text {
+            text-align: center;
+            font-family: 'Bubblegum Sans', cursive;
+            animation: floatIn 1.5s ease-out;
+            padding: 20px;
+        }
+
+        .main-text {
+            font-size: clamp(2rem, 6vw, 3rem);
+            color: #FF69B4;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+            animation: slideIn 1.5s ease-out;
+        }
+
+        .age-text {
+            font-size: clamp(3rem, 8vw, 4rem);
+            margin: 10px 0;
+            background: linear-gradient(45deg, #FFB6C1, #FF69B4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+        }
+
+        .legend-text {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #FF69B4;
+            margin: 15px 0;
+        }
+
+        .age-display {
+            font-size: clamp(4rem, 12vw, 6rem);
+            text-align: center;
+            margin: 20px 0;
+            animation: popIn 1.5s ease-out;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        /* iPhone 14 specific styles */
+        @media screen and (device-width: 390px) and (device-height: 844px), 
+               screen and (device-width: 428px) and (device-height: 926px) {
+            .container {
+                padding: env(safe-area-inset-top) env(safe-area-inset-right) 
+                        env(safe-area-inset-bottom) env(safe-area-inset-left);
+            }
+            
+            .surprise-btn {
+                padding: 18px 36px;
+                font-size: 1.6rem;
+            }
+            
+            .birthday-text {
+                margin-top: env(safe-area-inset-top);
+            }
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Safe area handling for notched devices */
+        @supports (padding: max(0px)) {
+            .container {
+                padding-left: max(15px, env(safe-area-inset-left));
+                padding-right: max(15px, env(safe-area-inset-right));
+            }
+        }
+    </style>
+    <!-- Add confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <button id="surpriseBtn" class="surprise-btn">?????!!!</button>
+    <div id="birthdayContent" class="hidden">
+        <div class="birthday-text">
+            <p class="main-text">🎉 Yayyy! Happy twenty bhumuu 🎂</p>
+            <div class="age-display">2️⃣0️⃣</div>
+            <p class="legend-text">and officially a legend! ⭐</p>
+        </div>
+    </div>
+
+    <!-- Update the audio element -->
+    <audio id="birthdaySound">
+        <source src="./assetss/subway.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const surpriseBtn = document.getElementById('surpriseBtn');
+            const birthdayContent = document.getElementById('birthdayContent');
+            const birthdayMessage = document.getElementById('birthdayMessage');
+            const birthdaySound = document.getElementById('birthdaySound');
+            
+            const imageUrl = './assetss/Adbobe7267 (2).jpg';
+
+            function createFlyingImage() {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.classList.add('flying-image');
+                
+                img.style.left = `${Math.random() * (window.innerWidth - 120)}px`;
+                img.style.top = window.innerHeight + 'px';
+                
+                document.body.appendChild(img);
+
+                img.animate([
+                    { 
+                        transform: 'translateY(0) rotate(0deg) scale(1)',
+                        opacity: 0 
+                    },
+                    { 
+                        transform: 'translateY(-100px) rotate(180deg) scale(1.2)',
+                        opacity: 1,
+                        offset: 0.2
+                    },
+                    { 
+                        transform: `translateY(-${window.innerHeight + 120}px) rotate(360deg) scale(1)`,
+                        opacity: 1 
+                    }
+                ], {
+                    duration: 6000,
+                    easing: 'ease-in-out'
+                }).onfinish = () => {
+                    img.remove();
+                    createFlyingImage();
+                };
+            }
+
+            function createBlastEffect(x, y) {
+                const blast = document.createElement('div');
+                blast.className = 'image-blast';
+                blast.style.left = `${x}px`;
+                blast.style.top = `${y}px`;
+
+                // Create multiple particles from the image
+                for (let i = 0; i < 12; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'blast-particle';
+                    particle.style.backgroundImage = `url('./assetss/Adbobe7267 (2).jpg')`;
+                    
+                    const angle = (i / 12) * 360;
+                    const distance = 100 + Math.random() * 50;
+                    
+                    particle.animate([
+                        { 
+                            transform: 'scale(0.8) rotate(0deg)',
+                            opacity: 1
+                        },
+                        { 
+                            transform: `translate(${Math.cos(angle * Math.PI / 180) * distance}px, 
+                                    ${Math.sin(angle * Math.PI / 180) * distance}px) 
+                                    scale(0.2) rotate(${360 + Math.random() * 720}deg)`,
+                            opacity: 0
+                        }
+                    ], {
+                        duration: 1500,
+                        easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                        fill: 'forwards'
+                    });
+
+                    blast.appendChild(particle);
+                }
+
+                document.body.appendChild(blast);
+                setTimeout(() => blast.remove(), 1500);
+            }
+
+            function createFlyingPlane() {
+                const container = document.createElement('div');
+                container.className = 'plane-container';
+
+                // Random starting position
+                const startY = Math.random() * (window.innerHeight - 100);
+                container.style.top = `${startY}px`;
+                container.style.left = '-150px';
+
+                // Create plane with image
+                container.innerHTML = `
+                    <div class="plane">
+                        <img src="./assetss/Adbobe7267 (2).jpg" class="bestie-pic">
+                        <div class="plane-trail">✨✨✨</div>
+                    </div>
+                `;
+
+                document.body.appendChild(container);
+
+                // Complex flight path animation
+                const keyframes = [
+                    { transform: 'translateX(-150px) translateY(0) rotate(5deg)' },
+                    { transform: `translateX(${window.innerWidth * 0.25}px) translateY(-50px) rotate(-5deg)` },
+                    { transform: `translateX(${window.innerWidth * 0.5}px) translateY(30px) rotate(5deg)` },
+                    { transform: `translateX(${window.innerWidth * 0.75}px) translateY(-30px) rotate(-5deg)` },
+                    { transform: `translateX(${window.innerWidth + 150}px) translateY(0) rotate(5deg)` }
+                ];
+
+                const animation = container.animate(keyframes, {
+                    duration: 8000,
+                    easing: 'ease-in-out'
+                });
+
+                // Create blast effect at random points during flight
+                setTimeout(() => {
+                    const rect = container.getBoundingClientRect();
+                    createBlastEffect(rect.left + rect.width/2, rect.top + rect.height/2);
+                }, 4000 + Math.random() * 2000);
+
+                animation.onfinish = () => {
+                    container.remove();
+                    createFlyingPlane();
+                };
+            }
+
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '💝';
+                heart.classList.add('hearts');
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = window.innerHeight + 'px';
+                document.body.appendChild(heart);
+
+                heart.animate([
+                    { transform: 'translateY(0)', opacity: 1 },
+                    { transform: `translateY(-${window.innerHeight}px)`, opacity: 0 }
+                ], {
+                    duration: 4000,
+                    easing: 'ease-out'
+                }).onfinish = () => heart.remove();
+            }
+
+            function triggerConfetti() {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
+
+            function startCelebration() {
+                const surpriseBtn = document.getElementById('surpriseBtn');
+                const birthdayContent = document.getElementById('birthdayContent');
+                
+                // Add background animation
+                document.body.classList.add('color-animation');
+                
+                // Hide button with fade out
+                surpriseBtn.style.opacity = '0';
+                setTimeout(() => {
+                    surpriseBtn.classList.add('hidden');
+                }, 500);
+                
+                // Show birthday content
+                birthdayContent.classList.remove('hidden');
+                setTimeout(() => {
+                    birthdayMessage.classList.add('show');
+                }, 600);
+                
+                // Play music with error handling
+                const playPromise = birthdaySound.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.error('Audio playback failed:', error);
+                    });
+                }
+                
+                setInterval(createHeart, 1000);
+
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => createFlyingImage(), i * 600);
+                }
+
+                // Start other animations
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(() => createFlyingPlane(), i * 1500);
+                }
+            }
+
+            surpriseBtn.addEventListener('click', startCelebration);
+        });
+    </script>
+</body>
+</html>
